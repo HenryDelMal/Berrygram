@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>Berrygram</name>
+    <author>HenrydelMal</author>
+    <description>Telegram for Blackberry</description>
+    <icon src="icon.png"/>
+    <content src="index.html"/>
+    <rim:navigation mode="focus" />
+    <feature id="blackberry.system.event" />
+    <feature id="blackberry.app" />
+    <feature id="blackberry.app.event"/>
+    <feature id="blackberry.ui.dialog" />
+    <feature id="blackberry.ui.menu"/>
+</widget>
