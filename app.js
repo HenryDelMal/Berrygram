@@ -33,7 +33,7 @@ document.addEventListener('webworksready', function(e) {
 
                 if (id == 'chats') {
                   chatsOnLoad_initialLoad(element);
-                } else if (id='send_test'){
+                } else if (id == 'send_test'){
                   if (typeof params.phone !== "undefined"){
                     element.getElementById('to_user').value = params.phone;
                   }

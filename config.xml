@@ -11,4 +11,5 @@
     <feature id="blackberry.app.event"/>
     <feature id="blackberry.ui.dialog" />
     <feature id="blackberry.ui.menu"/>
+    <access uri="http://192.168.2.40:5000" subdomains="true"/>
 </widget>
