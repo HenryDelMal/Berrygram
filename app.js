@@ -23,7 +23,7 @@ document.addEventListener('webworksready', function(e) {
   }
 
   // Handle styling of the screen before it is displayed
-  config.onscreenready = function(element, id) {
+  config.onscreenready = function(element, id, params) {
                 if (darkColoring && bb.device.isBB10) {
                   var screen = element.querySelector('[data-bb-type=screen]');
                   if (screen) {
@@ -32,7 +32,11 @@ document.addEventListener('webworksready', function(e) {
                 }
 
                 if (id == 'chats') {
-                  dataOnLoad_initialLoad(element);
+                  chatsOnLoad_initialLoad(element);
+                } else if (id='send_test'){
+                  if (typeof params.phone !== "undefined"){
+                    element.getElementById('to_user').value = params.phone;
+                  }
                 } else if (id == 'masterDetail') {
                   masterDetail_initialLoad(element);
                 } else if (id == 'dataOnTheFly') {
@@ -119,7 +123,7 @@ function send_txt(){
      dataType: 'json'
   });
 
-  bb.pushScreen("send_test.html", 'send_test');
+  bb.pushScreen("chats.html", 'chats');
 }
 
 function get_chats(){
@@ -128,4 +132,10 @@ function get_chats(){
     chats = json;
   });
   return chats;
+}
+
+var last_send_id;
+
+function go_to_chat(id){
+  bb.pushScreen("send_test.html", 'send_test', {phone: id});
 }
