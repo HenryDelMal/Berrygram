@@ -37,8 +37,8 @@ document.addEventListener('webworksready', function(e) {
                   if (typeof params.phone !== "undefined"){
                     element.getElementById('to_user').value = params.phone;
                   }
-                } else if (id == 'masterDetail') {
-                  masterDetail_initialLoad(element);
+                } else if (id == 'bubbles') {
+                  bubblesOnLoad_initialLoad(element, params.chat_id);
                 } else if (id == 'dataOnTheFly') {
                   dataOnTheFly_onScreenReady(element);
                 }
@@ -137,5 +137,5 @@ function get_chats(){
 var last_send_id;
 
 function go_to_chat(id){
-  bb.pushScreen("send_test.html", 'send_test', {phone: id});
+  bb.pushScreen("bubbles.html", 'bubbles', {chat_id: id});
 }
