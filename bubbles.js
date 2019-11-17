@@ -1,6 +1,6 @@
 function bubblesOnLoad_initialLoad(element, chat_id) {
   var listItem, listItem2, dataList = element.getElementById('chatWindow');
-  var result, my_id;
+  var result, my_id, last_element;
   $.get(server+'/get_my_id', function(data){
     my_id = data;
   });
@@ -13,6 +13,8 @@ function bubblesOnLoad_initialLoad(element, chat_id) {
     contentType: "application/json",
     dataType: 'json'
 });
+
+  element.getElementById('chat_id').value = chat_id;
 
   $.each(result, function(index, row){
     listItem = document.createElement('div');
@@ -29,9 +31,19 @@ function bubblesOnLoad_initialLoad(element, chat_id) {
     listItem2.setAttribute('data-bb-img', '1px.png');
     listItem2.innerHTML = row.message;
     listItem.appendChild(listItem2);
+    last_element = 'msg_'+row.id
+  });
 
-  })
+}
 
-  window.scrollTo(0,document.body.scrollHeight)
+function bubbles_send_txt(){
+  $.ajax(server+'/send_txt', {
+     data: JSON.stringify({to_user: document.getElementById("chat_id").value,
+                          text: document.getElementById("message").value}),
+     type: 'POST',
+     contentType: 'application/json',
+     dataType: 'json'
+  });
 
+  bb.pushScreen("bubbles.html", 'bubbles', {chat_id: document.getElementById("chat_id").value});
 }

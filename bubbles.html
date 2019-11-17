@@ -1,8 +1,17 @@
-<div data-bb-type="screen" data-bb-effect="fade">
+<div data-bb-type="screen" data-bb-effect="fade" id="bubbles">
 	<div data-bb-type="title" data-bb-caption="Conversation" data-bb-back-caption="Back" ></div>
   <script id="dataOnLoadJS" src="bubbles.js"></script>
   <div id="chatWindow">
+    <input type="hidden" id="chat_id"/>
 
     <!-- Data goes here -->
+  </div>
+  <div data-bb-type="round-panel">
+    <table width="100%;">
+      <tr>
+        <td style="padding-left:0px;width:90%;"><input type="text" id="message" value=""/></td>
+        <td><div data-bb-type="button" id="send" data-bb-style="stretch" onclick="bubbles_send_txt();">Send</div></td>
+      </tr>
+    </table>
   </div>
 </div>
