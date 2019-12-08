@@ -71,13 +71,31 @@ document.addEventListener('webworksready', function(e) {
     document.body.style['background-color'] = darkScreenColor;
     document.body.style['color'] = 'white';
   }
-  $.get(server+'/check_auth', function(data){
-    if (data=="authenticated"){
+
+  var authCookie = Cookies.get()["auth_hash"];
+  authCookie_type = typeof authCookie;
+  var auth_data;
+  if (authCookie_type === "undefined"){
+    bb.pushScreen("login.html", "login");
+
+  } else {
+
+    $.ajax(server+'/check_auth', {
+       data: JSON.stringify({auth_hash: authCookie}),
+       type: 'POST',
+       contentType: 'application/json',
+       dataType: 'json',
+       success: function(data) { auth_data=data; },
+    });
+    console.log("Authenticated= "+ auth_data["authenticated"]);
+    if (auth_data["authenticated"]== 'true'){
       bb.pushScreen("chats.html", 'chats');
     } else {
       bb.pushScreen("login.html", "login");
     }
-  });
+  }
+
+
 }, false);
 
 // Fire the webworksready event for PlayBook and BBOS
@@ -93,20 +111,32 @@ window.addEventListener('load',function() {
     async: false
   });
 
+var auth_hash;
+var phone_temp;
+var phone_code_hash;
+
 function login(){
   var full_number = document.getElementById("area_code").value + document.getElementById("phone").value;
+  phone_temp = full_number;
   $.ajax(server+'/login', {
      data: JSON.stringify({phone: full_number}),
      type: 'POST',
      contentType: 'application/json',
-     dataType: 'json'
+     dataType: 'json',
+     success: function(data) { auth_hash=data; },
   });
+  console.log(auth_hash[0]);
+  authCookie = auth_hash[0];
+  phone_code_hash = auth_hash[1];
+  Cookies.set('auth_hash', authCookie, { expires : 365 });
   bb.pushScreen("auth.html", 'auth');
 }
 
+
+
 function login_auth(){
   $.ajax(server+'/login', {
-     data: JSON.stringify({code: document.getElementById("code").value}),
+     data: JSON.stringify({auth_hash: authCookie, phone_temp: phone_temp, phone_code_hash: phone_code_hash, code: document.getElementById("code").value}),
      type: 'POST',
      contentType: 'application/json',
      dataType: 'json'
@@ -128,9 +158,10 @@ function send_txt(){
 
 function get_chats(){
   var chats;
-  $.getJSON(server+"/get_chats", function(json){
-    chats = json;
-  });
+// $.getJSON(server+"/get_chats", function(json){
+//    chats = json;
+//  });
+
   return chats;
 }
 

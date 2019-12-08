@@ -1,8 +1,15 @@
 function chatsOnLoad_initialLoad(element) {
   var listItem, dataList = element.getElementById('dataList');
   var result;
-  $.getJSON(server+'/get_chats', function(data) {
-    result=data;
+  //$.getJSON(server+'/get_chats', function(data) {
+  //  result=data;
+  //});
+  $.ajax(server+'/get_chats', {
+     data: JSON.stringify({auth_hash: Cookies.get()["auth_hash"]}),
+     type: 'POST',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: function(data) { result=data; },
   });
 
   $.each(result, function(index, row){
