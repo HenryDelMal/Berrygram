@@ -1,4 +1,4 @@
-var server = "http://192.168.2.40:5000";
+var server = "http://ardilla.cuy.cl:5000";
 
 var webworksreadyFired = false,
   darkColoring = false,

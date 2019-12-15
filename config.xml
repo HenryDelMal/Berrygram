@@ -11,5 +11,13 @@
     <feature id="blackberry.app.event"/>
     <feature id="blackberry.ui.dialog" />
     <feature id="blackberry.ui.menu"/>
-    <access uri="http://192.168.2.40:5000" subdomains="true"/>
+    <access uri="*"/>
+    <rim:connection timeout="60000">
+      <id>BIS-B</id>
+      <id>TCP_WIFI</id>
+      <id>TCP_CELLULAR</id>
+      <id>MDS</id>
+      <id>WAP2</id>
+      <id>WAP</id>
+    </rim:connection>
 </widget>
